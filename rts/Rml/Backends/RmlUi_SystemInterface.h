@@ -64,6 +64,7 @@ public:
 
 	// New hooks for Recoil engine
 	const Rml::String& GetMouseCursor();
+	void SetTranslationTable(TranslationTable* tt);
 
 	/**
 	 * <p>
@@ -83,6 +84,7 @@ public:
 	std::unordered_map<std::string, std::string> mouseCursorAliases;
 
 private:
+	TranslationTable* translationTable = nullptr;
 	Rml::String mouseCursor;
 };
 
