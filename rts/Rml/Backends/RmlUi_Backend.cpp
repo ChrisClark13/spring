@@ -38,7 +38,6 @@
 
 #include "Lua/LuaUI.h"
 #include "Rml/Components/ElementLuaTexture.h"
-#include "Rml/Components/DecoratorLuaRender.h"
 #include "Rml/RmlInputReceiver.h"
 #include "Rml/SolLua/RmlSolLua.h"
 #include "RmlUi_Backend.h"
