@@ -175,6 +175,7 @@ void CLuaHandle::KillLua(bool inFreeHandler)
 
 	if(rmlui) {
 		RmlGui::RemoveLua();
+		rmlui = false;
 	}
 
 	// 3. delete the lua_State
@@ -3796,7 +3797,7 @@ int CLuaHandle::CallOutUpdateCallIn(lua_State* L)
 	return 0;
 }
 
-void CLuaHandle::InitializeRmlUi()
+void CLuaHandle::InitializeRmlUiLua()
 {
 	rmlui = RmlGui::InitializeLua(L);
 }

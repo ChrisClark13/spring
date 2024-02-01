@@ -317,6 +317,19 @@ void RmlGui::PresentFrame()
 	RMLUI_FrameMark;
 }
 
+lua_State* RmlGui::GetLuaState()
+{
+	if (!RmlInitialized()) {
+		return nullptr;
+	}
+
+	return data->ls;
+}
+
+////////////////////////////////////////
+/// Input Event Handling
+///////////////////////////////////////
+///
 /*
   Return true if the event was handled by rmlui
 */
@@ -468,14 +481,4 @@ bool RmlGui::ProcessEvent(const SDL_Event& event)
 		result |= processContextEvent(context, event);
 	}
 	return result;
-}
-
-lua_State* RmlGui::GetLuaState()
-{
-    if (!RmlInitialized())
-    {
-        return nullptr;
-    }
-
-    return data->ls;
 }
