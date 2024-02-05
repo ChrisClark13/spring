@@ -37,6 +37,8 @@
 #include <RmlUi/Core/Types.h>
 #include <SDL.h>
 
+#include "Rml/SolLua/TranslationTable.h"
+
 class RmlSystemInterface : public Rml::SystemInterface
 {
 public:

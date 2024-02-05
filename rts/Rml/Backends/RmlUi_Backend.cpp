@@ -36,9 +36,10 @@
 #include <functional>
 #include <tracy/Tracy.hpp>
 
-#include "Rendering/Textures/Bitmap.h"
+#include "Lua/LuaUI.h"
 #include "Rml/Components/ElementLuaTexture.h"
 #include "Rml/RmlInputReceiver.h"
+#include "Rml/SolLua/RmlSolLua.h"
 #include "RmlUi_Backend.h"
 
 #ifndef HEADLESS
