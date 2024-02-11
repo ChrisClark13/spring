@@ -92,31 +92,6 @@ namespace {
 		const char *const UseTexture = "_useTexture";
 	}  // namespace ProgramUniform
 
-	struct CompiledGeometryData {
-	vec4 texColor = texture(_tex, fragTexCoord);
-	finalColor = fragColor * texColor;
-}
-)";
-static const std::string shader_main_fragment_color = R"(
-in vec2 fragTexCoord;
-in vec4 fragColor;
-
-out vec4 finalColor;
-
-void main() {
-	finalColor = fragColor;
-}
-)";
-
-namespace
-{
-	namespace ProgramUniform
-	{
-		const char* const Translate = "_translate";
-		const char* const Transform = "_transform";
-		const char* const Tex = "_tex";
-	}
-
 	struct CompiledGeometryData
 	{
 		Rml::TextureHandle texture;
