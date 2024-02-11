@@ -13,10 +13,3 @@ set(sources_engine_RmlSolLua
 		"${sources_RmlSolLua}"
 		PARENT_SCOPE
 )
-
-add_subdirectory(SolLua)
-
-set(sources_engine_RmlSolLua
-		"${sources_RmlSolLua}"
-		PARENT_SCOPE
-)
