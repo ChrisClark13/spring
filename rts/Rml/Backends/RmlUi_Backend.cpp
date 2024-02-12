@@ -37,7 +37,6 @@
 #include <tracy/Tracy.hpp>
 
 #include "Lua/LuaUI.h"
-#include "Rendering/Textures/Bitmap.h"
 #include "Rml/Components/ElementLuaTexture.h"
 #include "Rml/RmlInputReceiver.h"
 #include "Rml/SolLua/RmlSolLua.h"
