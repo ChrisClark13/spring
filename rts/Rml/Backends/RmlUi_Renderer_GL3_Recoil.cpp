@@ -100,7 +100,7 @@ namespace {
 		int num_indices;
 
 		static std::array<AttributeDef, 3> attributeDefs;
-	};
+};
 
 	std::array<AttributeDef, 3> CompiledGeometryData::attributeDefs = {
 			AttributeDef(0, 2, GL_FLOAT, sizeof(Rml::Vertex), (const void *) offsetof(Rml::Vertex, position),

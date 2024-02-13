@@ -117,10 +117,10 @@ struct BackendData {
 	int winY = 1;
 
 	lua_State* ls = nullptr;
+	Rml::SolLua::SolLuaPlugin* luaPlugin = nullptr;
 
 	CtxMutex contextMutex;
 	Rml::UniquePtr<PassThroughPlugin> plugin;
-	Rml::SolLua::SolLuaPlugin* luaPlugin = nullptr;
     Rml::UniquePtr<Rml::ElementInstancerGeneric<RmlGui::ElementLuaTexture>> element_lua_texture_instancer;
 };
 
@@ -188,6 +188,9 @@ bool RmlGui::RemoveLua()
 	data->luaPlugin->RemoveLuaItems();
 	Update();
 	Rml::UnregisterPlugin(data->luaPlugin);
+	data->system_interface.SetTranslationTable(nullptr);
+	data->luaPlugin = nullptr;
+	data->ls = nullptr;
 
 	return true;
 }
