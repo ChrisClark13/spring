@@ -27,7 +27,7 @@ public:
 
 protected:
 	const std::string render_callback_ident;
-	bool TryCallback(Rml::Element* element, const std::string& callback, const sol::environment& env, bool try_widget = true) const;
+	bool TryCallback(Rml::Element* element, const std::string& callback, const sol::environment& env) const;
 };
 
 class DecoratorLuaRenderInstancer : public Rml::DecoratorInstancer {

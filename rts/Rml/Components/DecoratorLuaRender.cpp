@@ -29,6 +29,7 @@ void DecoratorLuaRender::ReleaseElementData(Rml::DecoratorDataHandle element_dat
 {
 
 }
+
 void DecoratorLuaRender::RenderElement(Rml::Element* element, Rml::DecoratorDataHandle _) const
 {
 	if (render_callback_ident.empty() || render_callback_ident == "none")
@@ -41,8 +42,7 @@ void DecoratorLuaRender::RenderElement(Rml::Element* element, Rml::DecoratorData
 	LuaOpenGL::SetDrawingEnabled(L, true);
 
 	try {
-		if (!TryCallback(element, render_callback_ident, env) &&
-			!TryCallback(element, render_callback_ident, env, false)) {
+		if (!TryCallback(element, render_callback_ident, env)) {
 			LOG_L(L_WARNING, "Could not find a callback called '%s' in widget env",
 				  render_callback_ident.c_str());
 		}
@@ -53,26 +53,27 @@ void DecoratorLuaRender::RenderElement(Rml::Element* element, Rml::DecoratorData
 	LuaOpenGL::SetDrawingEnabled(L, prev_drawing_enabled);
 }
 
-bool DecoratorLuaRender::TryCallback(Rml::Element* element, const std::string& callback,
-                                     const sol::environment & env, bool try_widget) const
+bool DecoratorLuaRender::TryCallback(Rml::Element* element, const std::string& callback, const sol::environment & env) const
 {
 	using opt_pf = sol::optional<sol::protected_function>;
-	opt_pf func;
-	if (try_widget) {
-		func = env.traverse_get<opt_pf>("widget", callback);
-	} else {
+	opt_pf func = env.traverse_get<opt_pf>("widget", callback);
+
+	if (!(func.has_value() && func->valid())) {
+		// try a fallback
 		func = env.get<opt_pf>(callback);
+		if (!(func.has_value() && func->valid())) {
+			// fallback failed, abort
+			return false;
+		}
 	}
 
-	if (func.has_value() && func->valid()) {
-		auto pfr = func->call(element);
-		if (!pfr.valid()) {
-			sol::error err = pfr;
-			LOG_L(L_ERROR, "[RmlGui] Error in DecoratorLuaRender callback: %s", err.what());
-		}
-		return true;
+	auto pfr = func->call(element);
+	if (!pfr.valid()) {
+		sol::error err = pfr;
+		LOG_L(L_ERROR, "[RmlGui] Error in DecoratorLuaRender callback: %s", err.what());
 	}
-	return false;
+
+	return true;
 }
 
 DecoratorLuaRenderInstancer::DecoratorLuaRenderInstancer()
