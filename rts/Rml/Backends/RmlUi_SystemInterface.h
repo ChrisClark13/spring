@@ -80,6 +80,23 @@ public:
 	 */
 	std::unordered_map<std::string, std::string> mouseCursorAliases;
 
+	/**
+	 * <p>
+	 * Map in which to set alias such that when given a string <u>from</u> RmlUi via SetMouseCursor(),
+	 * it is passed <u>to</u> the Recoil engine as a different string when GetMouseCursor() is called.
+	 * </p><p>
+	 * If a string passed via SetMouseCursor() in not in the map,
+	 * that string is passed to the rest of the engine code unaltered. (Nothing happens)
+	 * </p><p>
+	 * This is to allow for the use of standard CSS cursor names in RCSS styles
+	 * instead of having to look up what cursors are registered with the engine and using that.
+	 * </p>
+	 * @example Use from Lua: @code RmlUi.SetMouseCursorAlias("default", "cursornormal") @endcode
+	 * @link CSS cursor list:<br/> https://developer.mozilla.org/en-US/docs/Web/CSS/cursor
+	 * @link RmlUi documentation:<br/> https://mikke89.github.io/RmlUiDoc/pages/rcss/user_interface.html#cursor
+	 */
+	std::unordered_map<std::string, std::string> mouseCursorAliases;
+
 private:
 	Rml::String mouseCursor;
 };
