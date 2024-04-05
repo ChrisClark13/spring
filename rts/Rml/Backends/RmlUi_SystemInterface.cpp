@@ -53,8 +53,8 @@ int RmlSystemInterface::TranslateString(Rml::String& translated, const Rml::Stri
 {
 	if (!translationTable || !translationTable->exists(input)) {
 		translated = input;
-		return 0;
-	}
+	return 0;
+}
 	std::string translation = translationTable->getTranslationString(input);
 	translated = translation;
 	return 1;

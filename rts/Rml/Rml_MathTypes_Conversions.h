@@ -99,4 +99,4 @@
 	{                                                                         \
 	}
 
-#endif //RML_MATHTYPES_CONVERSIONS_H
+#endif  // RML_MATH_TYPES_CONVERSIONS_H

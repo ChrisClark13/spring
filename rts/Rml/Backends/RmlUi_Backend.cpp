@@ -36,9 +36,11 @@
 #include <functional>
 #include <tracy/Tracy.hpp>
 
+#include "Lua/LuaUI.h"
 #include "Rendering/Textures/Bitmap.h"
 #include "Rml/Components/ElementLuaTexture.h"
 #include "Rml/RmlInputReceiver.h"
+#include "Rml/SolLua/RmlSolLua.h"
 #include "RmlUi_Backend.h"
 
 #ifndef HEADLESS
@@ -54,7 +56,6 @@
 
 using CtxMutex = std::recursive_mutex;
 using CtxLockGuard = std::lock_guard<CtxMutex>;
-struct lua_State;
 
 /// Passes through RML events to the function pointers given in the constructor
 class PassThroughPlugin : public Rml::Plugin
@@ -116,6 +117,7 @@ struct BackendData {
 	int winY = 1;
 
 	lua_State* ls = nullptr;
+	Rml::SolLua::SolLuaPlugin* luaPlugin = nullptr;
 
 	CtxMutex contextMutex;
 	Rml::UniquePtr<PassThroughPlugin> plugin;
@@ -479,4 +481,14 @@ bool RmlGui::ProcessEvent(const SDL_Event& event)
 		result |= processContextEvent(context, event);
 	}
 	return result;
+}
+
+lua_State* RmlGui::GetLuaState()
+{
+    if (!RmlInitialized())
+    {
+        return nullptr;
+    }
+
+    return data->ls;
 }
